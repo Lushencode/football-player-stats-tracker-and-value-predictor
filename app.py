@@ -7,7 +7,7 @@ import joblib
 # ============================================================
 
 st.set_page_config(
-    page_title=" LG Football Player Value Predictor",
+    page_title=" LG Football Player Stats Tracker and Value Predictor",
     layout="wide"
 )
 
@@ -58,7 +58,7 @@ features = [
 # TITLE
 # ============================================================
 
-st.title(" LG Football Player Value Predictor")
+st.title(" LG Football Player Stats Tracker and Value Predictor")
 
 st.write(
     "Analyse player statistics and predict future market value."
@@ -119,7 +119,7 @@ with col1:
 
 with col2:
     st.write("**Age**")
-    st.write(f"{player['age']:.1f}")
+    st.write(f"{round(player['age'])}")
 
 with col3:
     st.write("**Club**")
@@ -377,7 +377,7 @@ elif option == "📊 View Past Season Stats":
         with col1:
             st.metric(
                 "Age",
-                f"{season_player['age']:.1f}"
+                f"{round(season_player['age'])}"
             )
 
         with col2:
@@ -526,13 +526,14 @@ elif option == "📊 View Past Season Stats":
         with col1:
             st.metric(
                 "International Caps",
-                int(season_player["international_caps"])
+                int(season_player["international_caps"]) if pd.notna(season_player["international_caps"]) else 0
             )
 
         with col2:
             st.metric(
                 "International Goals",
-                int(season_player["international_goals"])
+                int(season_player["international_goals"])  if pd.notna(season_player["international_goals"]) else 0
+            
             )
 
         # ====================================================
